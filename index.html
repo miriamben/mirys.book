@@ -1,0 +1,727 @@
+<meta charset="utf-8">
+<title>Miry's book</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,700;1,6..96,400&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap">
+<style>
+/* Layout: colonna editoriale da 1120px, bande a tutta larghezza con wrapper interno;
+   catalogo a griglia auto-fit, vassoio richiesta flottante in basso a destra. */
+:root{
+  /* Colore: inchiostro tipografico, carta con bias violaceo, ceralacca come unico accento, ottone per i dettagli */
+  --paper:#f3f0f2;
+  --surface:#fffdfc;
+  --surface-2:#eceaef;
+  --ink:#191722;
+  --ink-soft:#514d5e;
+  --ink-faint:#7d7889;
+  --line:#ded8dd;
+  --wax:#a3243b;
+  --wax-soft:#f3e3e6;
+  --brass:#8a7246;
+  --shadow:0 1px 2px rgba(25,23,34,.05), 0 12px 28px -18px rgba(25,23,34,.28);
+
+  /* Tipo */
+  --display:"Bodoni Moda", "Didot", "Times New Roman", serif;
+  --body:"Karla", "Helvetica Neue", Arial, sans-serif;
+
+  --maxw:1120px;
+  --gutter:max(16px, env(safe-area-inset-left, 0px));
+  --gutter-r:max(16px, env(safe-area-inset-right, 0px));
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#14121a;
+    --surface:#1d1a25;
+    --surface-2:#252130;
+    --ink:#ece8f0;
+    --ink-soft:#aaa3b6;
+    --ink-faint:#8b8498;
+    --line:#302b3a;
+    --wax:#df7389;
+    --wax-soft:#32202a;
+    --brass:#c9a86a;
+    --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 32px -20px rgba(0,0,0,.8);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#14121a;
+  --surface:#1d1a25;
+  --surface-2:#252130;
+  --ink:#ece8f0;
+  --ink-soft:#aaa3b6;
+  --ink-faint:#8b8498;
+  --line:#302b3a;
+  --wax:#df7389;
+  --wax-soft:#32202a;
+  --brass:#c9a86a;
+  --shadow:0 1px 2px rgba(0,0,0,.4), 0 16px 32px -20px rgba(0,0,0,.8);
+  color-scheme:dark;
+}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--body);
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:40;background:var(--surface)}
+img{max-width:100%}
+a{color:inherit}
+h1,h2,h3{font-family:var(--display);font-weight:500;text-wrap:balance;margin:0;line-height:1.1}
+p{margin:0}
+:focus-visible{outline:2px solid var(--wax);outline-offset:3px;border-radius:2px}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gutter);padding-right:var(--gutter-r)}
+.band{border-top:1px solid var(--line)}
+.band--sheet{background:var(--surface)}
+.sec{padding-block:clamp(48px,7vw,88px)}
+
+.eyebrow{
+  font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--ink-faint);font-weight:700;margin:0 0 14px
+}
+.lead{color:var(--ink-soft);font-size:1.0625rem;max-width:62ch}
+
+/* ---------- header ---------- */
+header.site{
+  position:sticky;top:env(safe-area-inset-top,0px);z-index:30;
+  background:var(--surface);border-bottom:1px solid var(--line)
+}
+.bar{display:flex;align-items:center;gap:20px;padding-block:14px}
+.logo{display:flex;align-items:baseline;gap:10px;text-decoration:none;min-width:0}
+.logo b{font-family:var(--display);font-size:1.3rem;font-weight:700;letter-spacing:.01em}
+.logo span{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-faint);white-space:nowrap}
+nav.main{display:flex;gap:22px;margin-left:auto}
+nav.main a{text-decoration:none;font-size:.9375rem;color:var(--ink-soft);padding-block:4px;border-bottom:1px solid transparent}
+nav.main a:hover{color:var(--ink);border-bottom-color:var(--wax)}
+@media (max-width:860px){nav.main{display:none}}
+
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  font-family:var(--body);font-size:.9375rem;font-weight:700;
+  padding:11px 18px;border-radius:2px;border:1px solid transparent;
+  text-decoration:none;cursor:pointer;background:none;color:inherit;
+  transition:transform .15s ease, background-color .15s ease, color .15s ease;
+}
+.btn:active{transform:translateY(1px)}
+.btn--wax{background:var(--wax);color:#fff;border-color:var(--wax)}
+.btn--wax:hover{background:color-mix(in srgb, var(--wax) 86%, black)}
+.btn--ghost{border-color:var(--line);color:var(--ink)}
+.btn--ghost:hover{background:var(--surface-2)}
+.btn--sm{padding:8px 13px;font-size:.875rem}
+.btn svg{width:17px;height:17px;flex:none}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* ---------- hero ---------- */
+.hero{display:grid;grid-template-columns:1.15fr .85fr;gap:clamp(28px,5vw,64px);align-items:center;padding-block:clamp(44px,6vw,76px)}
+.hero h1{font-size:clamp(2.3rem,6.2vw,3.9rem)}
+.hero h1 em{font-style:italic;color:var(--wax)}
+.hero .lead{margin-top:20px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:12px;margin-top:28px}
+.hero-note{margin-top:18px;font-size:.875rem;color:var(--ink-faint)}
+.seal{
+  aspect-ratio:1;max-width:100%;border-radius:50%;
+  background:radial-gradient(circle at 34% 30%, color-mix(in srgb,var(--wax) 78%, white), var(--wax) 58%, color-mix(in srgb,var(--wax) 70%, black));
+  display:grid;place-items:center;box-shadow:var(--shadow);
+}
+.seal span{font-family:var(--display);color:#fff;font-size:clamp(2.6rem,8vw,4.4rem);font-style:italic;opacity:.95}
+.seal-wrap{display:grid;place-items:center;position:relative}
+.seal-wrap small{
+  position:absolute;bottom:-6px;background:var(--surface);border:1px solid var(--line);
+  padding:6px 12px;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-soft)
+}
+@media (max-width:760px){.hero{grid-template-columns:1fr}.seal-wrap{order:-1;max-width:220px;margin-inline:auto}}
+
+/* ---------- come funziona ---------- */
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:1px;background:var(--line);border:1px solid var(--line)}
+.step{background:var(--surface);padding:26px 24px;min-width:0}
+.step b{display:block;font-family:var(--display);font-size:1.6rem;color:var(--brass);line-height:1;margin-bottom:12px}
+.step h3{font-size:1.125rem;margin-bottom:7px}
+.step p{color:var(--ink-soft);font-size:.9375rem}
+
+/* ---------- catalogo ---------- */
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;flex-wrap:wrap;margin-bottom:26px}
+.sec-head h2{font-size:clamp(1.8rem,4vw,2.5rem)}
+.filters{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:26px}
+.chip{
+  border:1px solid var(--line);background:var(--surface);color:var(--ink-soft);
+  padding:7px 14px;border-radius:999px;font-size:.875rem;cursor:pointer;font-family:var(--body)
+}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(248px,1fr));gap:20px}
+.card{background:var(--surface);border:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.card .art{aspect-ratio:4/3;max-width:100%;background:var(--surface-2);display:grid;place-items:center;border-bottom:1px solid var(--line);overflow:hidden}
+.card .art svg{width:52%;height:52%}
+.card .art img{width:100%;height:100%;object-fit:cover;display:block}
+.card-body{padding:18px 18px 20px;display:flex;flex-direction:column;gap:8px;flex:1}
+.card h3{font-size:1.1875rem}
+.card .desc{font-size:.9375rem;color:var(--ink-soft)}
+.card .meta{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint)}
+.ask{font-family:var(--display);font-size:1.0625rem;font-style:italic;color:var(--wax);margin-top:auto;padding-top:8px}
+.card-actions{display:flex;gap:8px;flex-wrap:wrap;padding:0 18px 18px}
+.card-actions .btn{flex:1 1 auto}
+.pill{display:inline-block;align-self:flex-start;background:var(--wax-soft);color:var(--wax);font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:4px 9px}
+.stato{
+  grid-column:1/-1;border:1px dashed var(--line);background:var(--surface);
+  padding:34px 24px;text-align:center;color:var(--ink-faint)
+}
+.stato strong{display:block;font-family:var(--display);font-size:1.3rem;color:var(--ink);font-weight:500;margin-bottom:6px}
+
+/* ---------- preventivi ---------- */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,4vw,56px);align-items:start}
+@media (max-width:860px){.two{grid-template-columns:1fr}}
+form.quote{display:grid;gap:14px;background:var(--surface);border:1px solid var(--line);padding:clamp(20px,3vw,30px)}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);font-weight:700}
+.field input,.field select,.field textarea{
+  font-family:var(--body);font-size:1rem;color:var(--ink);background:var(--paper);
+  border:1px solid var(--line);border-radius:2px;padding:11px 12px;width:100%
+}
+.field textarea{resize:vertical;min-height:96px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:520px){.row2{grid-template-columns:1fr}}
+.hint{font-size:.8125rem;color:var(--ink-faint)}
+.b2b ul{margin:16px 0 0;padding-left:20px;color:var(--ink-soft);display:grid;gap:8px;font-size:.9375rem}
+.contact-line{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-top:22px;font-size:1.0625rem}
+.contact-line code{font-family:var(--body);font-weight:700;font-variant-numeric:tabular-nums;letter-spacing:.02em}
+
+/* ---------- faq ---------- */
+.faq{display:grid;gap:0;border-top:1px solid var(--line);max-width:74ch}
+details{border-bottom:1px solid var(--line)}
+summary{cursor:pointer;padding:18px 0;font-weight:700;list-style:none;display:flex;gap:14px;align-items:baseline}
+summary::-webkit-details-marker{display:none}
+summary::before{content:"+";color:var(--wax);font-family:var(--display);font-size:1.3rem;line-height:1}
+details[open] summary::before{content:"–"}
+details p{padding:0 0 18px 28px;color:var(--ink-soft)}
+
+/* ---------- footer ---------- */
+footer.site{background:var(--ink);color:var(--paper);padding-block:clamp(36px,5vw,56px)}
+footer.site a{color:var(--paper);text-decoration:none;border-bottom:1px solid rgba(255,255,255,.25)}
+.foot{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:32px}
+@media (max-width:760px){.foot{grid-template-columns:1fr}}
+.foot h3{font-size:1.3rem;margin-bottom:10px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:9px;font-size:.9375rem}
+.foot .lbl{font-size:11px;letter-spacing:.18em;text-transform:uppercase;opacity:.6;margin-bottom:12px;font-weight:700}
+.legal{margin-top:34px;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);font-size:.8125rem;opacity:.7;display:flex;gap:18px;flex-wrap:wrap}
+
+/* ---------- vassoio richiesta ---------- */
+.tray-btn{
+  position:fixed;z-index:35;
+  right:calc(16px + env(safe-area-inset-right,0px));
+  bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  box-shadow:var(--shadow);border-radius:999px;padding:13px 20px
+}
+.tray-btn b{background:#fff;color:var(--wax);border-radius:999px;min-width:22px;padding:0 6px;font-size:.8125rem;line-height:22px;text-align:center}
+.tray{
+  position:fixed;z-index:36;
+  right:calc(16px + env(safe-area-inset-right,0px));
+  bottom:calc(16px + env(safe-area-inset-bottom,0px));
+  left:calc(16px + env(safe-area-inset-left,0px));
+  margin-left:auto;max-width:400px;
+  background:var(--surface);border:1px solid var(--line);box-shadow:var(--shadow);
+  display:flex;flex-direction:column;max-height:min(82vh,620px)
+}
+.tray header{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 18px;border-bottom:1px solid var(--line)}
+.tray header h3{font-size:1.1875rem}
+.tray .items{overflow:auto;padding:8px 18px;display:grid;gap:2px;list-style:none;margin:0}
+.tray .items li{display:flex;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line);font-size:.9375rem}
+.tray .items li:last-child{border-bottom:0}
+.tray .items .nm{flex:1;min-width:0}
+.tray .foot2{padding:16px 18px;border-top:1px solid var(--line);display:grid;gap:12px}
+.icon-btn{background:none;border:0;color:var(--ink-faint);cursor:pointer;font-size:1.25rem;line-height:1;padding:4px 6px;font-family:var(--body)}
+.icon-btn:hover{color:var(--wax)}
+.empty{color:var(--ink-faint);font-size:.9375rem;padding:18px 0}
+</style>
+
+<header class="site">
+  <div class="wrap bar">
+    <a class="logo" href="#top">
+      <b data-brand>Miry's book</b>
+      <span>handmade per lettori</span>
+    </a>
+    <nav class="main">
+      <a href="#catalogo">Catalogo</a>
+      <a href="#personalizzazioni">Personalizzazioni</a>
+      <a href="#collaborazioni">Autori e librerie</a>
+      <a href="#atelier">L'atelier</a>
+      <a href="#faq">Domande</a>
+    </nav>
+    <a class="btn btn--wax btn--sm" id="cta-header" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.91-9.91A9.86 9.86 0 0 0 12.04 2Zm5.8 14.03c-.25.69-1.44 1.32-1.98 1.37-.54.05-1.04.24-3.5-.72-2.96-1.17-4.81-4.25-4.95-4.45-.14-.2-1.17-1.56-1.17-2.97 0-1.41.74-2.1 1-2.39.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.63.48.22.54.76 1.86.83 2 .07.14.11.3.02.49-.09.19-.17.31-.34.48-.17.17-.36.38-.21.64.14.26.64 1.1 1.38 1.78.95.87 1.74 1.14 2 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.17-.26.35-.21.58-.13.23.08 1.5.71 1.76.84.26.13.43.19.49.3.06.1.06.62-.19 1.31Z"/></svg>
+      Scrivici
+    </a>
+  </div>
+</header>
+
+<main id="top">
+  <div class="wrap hero">
+    <div>
+      <p class="eyebrow">Atelier artigianale · Italia</p>
+      <h1>Oggetti fatti a mano per chi <em>vive tra le pagine</em>.</h1>
+      <p class="lead">Cover e inserti magnetici per Kindle e Kobo, charm, segnalibri in ottone, candele e box regalo. Ogni pezzo è cucito, rifinito e controllato a mano, un ordine alla volta.</p>
+      <div class="hero-cta">
+        <a class="btn btn--wax" href="#catalogo">Sfoglia il catalogo</a>
+        <a class="btn btn--ghost" id="cta-hero" href="#" target="_blank" rel="noopener">Scrivici su WhatsApp</a>
+      </div>
+      <p class="hero-note">Non c'è carrello: scegli i pezzi, ci scrivi su WhatsApp e ti rispondiamo con prezzo, disponibilità e tempi.</p>
+    </div>
+    <div class="seal-wrap">
+      <div class="seal" role="img" aria-label="Sigillo in ceralacca con la lettera M"><span>M</span></div>
+      <small>Pezzi unici su richiesta</small>
+    </div>
+  </div>
+
+  <div class="band band--sheet">
+    <section class="wrap sec">
+      <p class="eyebrow">Come si ordina</p>
+      <div class="steps">
+        <div class="step"><b>1</b><h3>Scegli i pezzi</h3><p>Aggiungi al blocco richiesta quello che ti interessa, anche solo per chiedere un'idea regalo.</p></div>
+        <div class="step"><b>2</b><h3>Ci scrivi su WhatsApp</h3><p>Il messaggio si compila da sé con i pezzi scelti. Rispondiamo entro 24 ore nei giorni lavorativi.</p></div>
+        <div class="step"><b>3</b><h3>Ricevi il preventivo</h3><p>Ti mandiamo prezzo, disponibilità, personalizzazioni possibili e tempi di lavorazione.</p></div>
+        <div class="step"><b>4</b><h3>Paghi come preferisci</h3><p>Bonifico, PayPal o Satispay: l'ordine entra in lavorazione alla conferma del pagamento.</p></div>
+      </div>
+    </section>
+  </div>
+
+  <div class="band">
+    <section class="wrap sec" id="catalogo">
+      <div class="sec-head">
+        <div>
+          <p class="eyebrow">Catalogo</p>
+          <h2>Le creazioni disponibili</h2>
+        </div>
+        <p class="lead" style="max-width:40ch">Il listino non è pubblico: ogni pezzo si quota su misura, perché cambia con il modello, la fantasia e la personalizzazione. Chiedi il prezzo in chat, risposta in giornata.</p>
+      </div>
+      <div class="filters" id="filters" role="group" aria-label="Filtra per categoria"></div>
+      <div class="grid" id="grid">
+        <div class="stato"><strong>Carico il catalogo…</strong>Un istante e vedi tutte le creazioni.</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="band band--sheet">
+    <section class="wrap sec two" id="personalizzazioni">
+      <div>
+        <p class="eyebrow">Su misura</p>
+        <h2>Personalizzazioni e preventivi</h2>
+        <p class="lead" style="margin-top:16px">Inserti con la tua grafica, cover sulle misure esatte del tuo e-reader, bomboniere e regali per gruppi di lettura: raccontaci cosa hai in mente e ti rispondiamo con un preventivo.</p>
+        <div class="b2b">
+          <ul>
+            <li>Misure su richiesta per Kindle Paperwhite, Colorsoft, Kobo Clara e Libra.</li>
+            <li>Grafiche originali o la tua illustrazione, stampata su tessuto o inserto magnetico.</li>
+            <li>Incisione su ottone per segnalibri e charm, fino a 20 caratteri.</li>
+            <li>Confezione regalo con biglietto scritto a mano, su richiesta.</li>
+          </ul>
+        </div>
+        <div class="contact-line">
+          <span>WhatsApp</span>
+          <code id="phone-text">+39 333 000 0000</code>
+          <button class="btn btn--ghost btn--sm" id="copy-phone" type="button">Copia numero</button>
+        </div>
+        <p class="hint" style="margin-top:10px">Scrivici anche per lo stato di un ordine già confermato.</p>
+      </div>
+
+      <form class="quote" id="quote-form" novalidate>
+        <div>
+          <p class="eyebrow" style="margin-bottom:6px">Richiesta preventivo</p>
+          <p class="hint">Compila i campi: il messaggio si apre già pronto su WhatsApp, lo invii tu.</p>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="q-nome">Nome</label>
+            <input id="q-nome" name="nome" type="text" placeholder="Come ti chiami" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="q-tipo">Tipo di richiesta</label>
+            <select id="q-tipo" name="tipo">
+              <option>Cover o inserto personalizzato</option>
+              <option>Idea regalo</option>
+              <option>Incisione su ottone</option>
+              <option>Ordine per gruppo di lettura</option>
+              <option>Rivendita in libreria</option>
+              <option>Altro</option>
+            </select>
+          </div>
+        </div>
+        <div class="row2">
+          <div class="field">
+            <label for="q-modello">Modello e-reader o misure</label>
+            <input id="q-modello" name="modello" type="text" placeholder="Es. Kobo Clara BW">
+          </div>
+          <div class="field">
+            <label for="q-qta">Quantità</label>
+            <input id="q-qta" name="qta" type="number" min="1" value="1" inputmode="numeric">
+          </div>
+        </div>
+        <div class="field">
+          <label for="q-dettagli">Cosa hai in mente</label>
+          <textarea id="q-dettagli" name="dettagli" placeholder="Colori, grafica, testo da incidere, data entro cui ti serve..."></textarea>
+        </div>
+        <button class="btn btn--wax" type="submit">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.91-9.91A9.86 9.86 0 0 0 12.04 2Zm5.8 14.03c-.25.69-1.44 1.32-1.98 1.37-.54.05-1.04.24-3.5-.72-2.96-1.17-4.81-4.25-4.95-4.45-.14-.2-1.17-1.56-1.17-2.97 0-1.41.74-2.1 1-2.39.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.63.48.22.54.76 1.86.83 2 .07.14.11.3.02.49-.09.19-.17.31-.34.48-.17.17-.36.38-.21.64.14.26.64 1.1 1.38 1.78.95.87 1.74 1.14 2 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.17-.26.35-.21.58-.13.23.08 1.5.71 1.76.84.26.13.43.19.49.3.06.1.06.62-.19 1.31Z"/></svg>
+          Apri il messaggio su WhatsApp
+        </button>
+        <p class="hint" id="quote-status" role="status"></p>
+      </form>
+    </section>
+  </div>
+
+  <div class="band">
+    <section class="wrap sec two" id="collaborazioni">
+      <div>
+        <p class="eyebrow">Per autori, librerie e case editrici</p>
+        <h2>Merchandising d'autore in piccole tirature</h2>
+        <p class="lead" style="margin-top:16px">Produciamo gadget dedicati a una saga, a un'uscita o a un festival: inserti, segnalibri, charm e box firmati, con la tua grafica o progettati insieme. Minimo 25 pezzi, campione prima della produzione.</p>
+        <div class="hero-cta">
+          <a class="btn btn--wax" id="cta-b2b" href="#" target="_blank" rel="noopener">Chiedi un preventivo B2B</a>
+          <a class="btn btn--ghost" href="#personalizzazioni">Vedi il modulo</a>
+        </div>
+      </div>
+      <div>
+        <p class="eyebrow">Tempi di lavorazione</p>
+        <div class="steps" style="grid-template-columns:1fr">
+          <div class="step"><h3>Pezzi in pronta consegna</h3><p>Spediti entro 3 giorni lavorativi dalla conferma.</p></div>
+          <div class="step"><h3>Personalizzazioni</h3><p>Da 7 a 10 giorni lavorativi, campione digitale in approvazione.</p></div>
+          <div class="step"><h3>Tirature per editori</h3><p>Da 3 a 5 settimane secondo quantità e finiture.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="band band--sheet">
+    <section class="wrap sec two" id="atelier">
+      <div>
+        <p class="eyebrow">L'atelier</p>
+        <h2>Un pezzo alla volta, dal tavolo di casa</h2>
+        <p class="lead" style="margin-top:16px">Taglio, cucio e rifinisco ogni creazione a mano, con tessuti e ottone scelti da fornitori italiani. Niente magazzino pieno e niente produzione in serie: lavoro su richiesta, così ogni pezzo nasce per una persona precisa e nulla resta invenduto.</p>
+        <p class="lead" style="margin-top:14px">Per questo le vendite passano da una conversazione: capiamo insieme il modello del tuo e-reader, i colori che ami e i tempi che hai, poi parte la lavorazione.</p>
+      </div>
+      <div>
+        <p class="eyebrow">Dove trovarci dal vivo</p>
+        <div class="steps" style="grid-template-columns:1fr">
+          <div class="step"><h3>Mercatini e fiere del libro</h3><p>Le prossime date le pubblichiamo su Instagram e le raccontiamo in chat.</p></div>
+          <div class="step"><h3>Ritiro a mano</h3><p>Possibile su appuntamento, concordato su WhatsApp.</p></div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <div class="band">
+    <section class="wrap sec" id="faq">
+      <p class="eyebrow">Domande frequenti</p>
+      <h2 style="margin-bottom:26px">Prima di scrivere</h2>
+      <div class="faq">
+        <details open>
+          <summary>Perché non vedo i prezzi?</summary>
+          <p>Perché quasi nulla qui è standard: il prezzo cambia con il modello del tuo e-reader, la fantasia scelta e la personalizzazione. Scrivici il pezzo che ti interessa e ti mandiamo il prezzo esatto, senza impegno e senza registrazioni.</p>
+        </details>
+        <details>
+          <summary>Perché non c'è il carrello?</summary>
+          <p>Lavoriamo su richiesta e ogni creazione va confermata prima di partire. Un messaggio evita ordini sbagliati: ti confermiamo tutto prima che tu paghi.</p>
+        </details>
+        <details>
+          <summary>Come si paga?</summary>
+          <p>Dopo il preventivo in chat: bonifico, PayPal o Satispay. Non chiediamo mai dati della carta su questo sito né in chat.</p>
+        </details>
+        <details>
+          <summary>Quanto costa la spedizione?</summary>
+          <p>Corriere tracciato in Italia, calcolato sul peso del pacco e indicato nel preventivo. Spedizione gratuita sopra i 75&nbsp;€. Spediamo anche in Europa, su richiesta.</p>
+        </details>
+        <details>
+          <summary>Posso avere un pezzo con la mia grafica?</summary>
+          <p>Sì, se hai i diritti sull'immagine. Serve un file ad almeno 300&nbsp;dpi; ti mandiamo un'anteprima digitale da approvare prima di stampare.</p>
+        </details>
+        <details>
+          <summary>E se un pezzo arriva danneggiato?</summary>
+          <p>Scrivici su WhatsApp con una foto entro 48 ore dalla consegna: lo sostituiamo o ti rimborsiamo. Sui pezzi personalizzati non è previsto il diritto di recesso.</p>
+        </details>
+      </div>
+    </section>
+  </div>
+</main>
+
+<footer class="site">
+  <div class="wrap">
+    <div class="foot">
+      <div>
+        <h3 data-brand>Miry's book</h3>
+        <p style="opacity:.8;max-width:38ch">Accessori handmade per lettori. Prezzi e preventivi su WhatsApp.</p>
+        <a class="btn btn--wax" id="cta-foot" href="#" target="_blank" rel="noopener" style="margin-top:18px">Scrivici su WhatsApp</a>
+      </div>
+      <div>
+        <p class="lbl">Contatti</p>
+        <ul>
+          <li>WhatsApp <strong id="phone-foot">+39 333 000 0000</strong></li>
+          <li id="email-foot">ciao@esempio.it</li>
+          <li id="orari-foot">Risposte lun–ven, 9–18</li>
+        </ul>
+      </div>
+      <div>
+        <p class="lbl">Sezioni</p>
+        <ul>
+          <li><a href="#catalogo">Catalogo</a></li>
+          <li><a href="#personalizzazioni">Personalizzazioni</a></li>
+          <li><a href="#collaborazioni">Autori e librerie</a></li>
+          <li><a href="#faq">Domande frequenti</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="legal">
+      <span>© <span id="year">2026</span> <span data-brand>Miry's book</span></span>
+      <span id="vat-foot">P. IVA 00000000000</span>
+      <span>Sito vetrina: nessun pagamento online.</span>
+    </div>
+  </div>
+</footer>
+
+<button class="btn btn--wax tray-btn" id="tray-btn" type="button" aria-expanded="false">
+  Richiesta <b id="tray-count">0</b>
+</button>
+
+<section class="tray" id="tray" hidden aria-label="Blocco richiesta">
+  <header>
+    <h3>La tua richiesta</h3>
+    <button class="icon-btn" id="tray-close" type="button" aria-label="Chiudi">×</button>
+  </header>
+  <ul class="items" id="tray-items"></ul>
+  <div class="foot2">
+    <div class="field">
+      <label for="tray-note">Note per noi</label>
+      <input id="tray-note" type="text" placeholder="Colori, modello e-reader, data...">
+    </div>
+    <a class="btn btn--wax" id="tray-send" href="#" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.46 1.32 4.96L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.9-4.45 9.91-9.91A9.86 9.86 0 0 0 12.04 2Zm5.8 14.03c-.25.69-1.44 1.32-1.98 1.37-.54.05-1.04.24-3.5-.72-2.96-1.17-4.81-4.25-4.95-4.45-.14-.2-1.17-1.56-1.17-2.97 0-1.41.74-2.1 1-2.39.26-.29.57-.36.76-.36l.54.01c.17 0 .41-.07.63.48.22.54.76 1.86.83 2 .07.14.11.3.02.49-.09.19-.17.31-.34.48-.17.17-.36.38-.21.64.14.26.64 1.1 1.38 1.78.95.87 1.74 1.14 2 1.27.26.13.41.11.56-.07.15-.18.65-.76.82-1.02.17-.26.35-.21.58-.13.23.08 1.5.71 1.76.84.26.13.43.19.49.3.06.1.06.62-.19 1.31Z"/></svg>
+      Chiedi i prezzi su WhatsApp
+    </a>
+    <p class="hint">Si apre WhatsApp con il messaggio già scritto. L'invio resta a te.</p>
+  </div>
+</section>
+
+<script>
+/* I contenuti NON si modificano qui: stanno in impostazioni.json e prodotti.json,
+   che si compilano dal pannello Pages CMS. Questo file è solo la grafica. */
+
+const DEFAULTS = {
+  brand: "Miry's book",
+  claim: "handmade per lettori",
+  phone: "393330000000",
+  phoneDisplay: "+39 333 000 0000",
+  email: "ciao@esempio.it",
+  orari: "Risposte lun–ven, 9–18",
+  vat: "00000000000"
+};
+
+const CATS = ["Tutto", "E-reader", "Accessori", "Casa e profumi", "Box e regali"];
+
+const ICONS = {
+  ereader:'<rect x="14" y="6" width="44" height="60" rx="4" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="20" y="12" width="32" height="42" rx="1.5" fill="var(--wax-soft)" stroke="var(--wax)" stroke-width="1.5"/><line x1="26" y1="22" x2="46" y2="22" stroke="var(--wax)" stroke-width="1.5"/><line x1="26" y1="30" x2="42" y2="30" stroke="var(--wax)" stroke-width="1.5"/><line x1="26" y1="38" x2="45" y2="38" stroke="var(--wax)" stroke-width="1.5"/><circle cx="36" cy="60" r="2.5" fill="currentColor"/>',
+  inserto:'<rect x="12" y="10" width="48" height="52" rx="3" fill="var(--wax-soft)" stroke="var(--wax)" stroke-width="2"/><path d="M12 48 L28 30 L40 44 L50 34 L60 46 V59 a3 3 0 0 1-3 3 H15 a3 3 0 0 1-3-3Z" fill="var(--wax)" opacity=".35"/><circle cx="48" cy="22" r="5" fill="none" stroke="currentColor" stroke-width="2"/>',
+  plug:'<rect x="26" y="20" width="20" height="34" rx="9" fill="none" stroke="currentColor" stroke-width="2.5"/><rect x="31" y="30" width="10" height="14" rx="5" fill="var(--wax)"/><path d="M30 20v-7M42 20v-7" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"/>',
+  holdie:'<circle cx="36" cy="38" r="20" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="36" cy="38" r="11" fill="none" stroke="var(--wax)" stroke-width="2"/><circle cx="36" cy="18" r="4" fill="var(--wax)"/><circle cx="29" cy="33" r="2" fill="var(--brass)"/><circle cx="43" cy="44" r="2" fill="var(--brass)"/>',
+  segnalibro:'<path d="M26 8h20v50l-10-9-10 9Z" fill="var(--brass)" opacity=".5" stroke="currentColor" stroke-width="2"/><circle cx="36" cy="18" r="3" fill="none" stroke="currentColor" stroke-width="1.8"/><path d="M36 58v8" stroke="currentColor" stroke-width="2"/><path d="M33 66h6l-3 6Z" fill="var(--wax)"/>',
+  charm:'<circle cx="36" cy="14" r="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M36 19v8" stroke="currentColor" stroke-width="2"/><path d="M36 27c8 4 14 10 14 18 0 8-6 13-14 13s-14-5-14-13c0-8 6-14 14-18Z" fill="var(--wax-soft)" stroke="var(--wax)" stroke-width="2"/><path d="M30 44c3 3 9 3 12 0" stroke="var(--wax)" stroke-width="2" fill="none"/>',
+  borsa:'<path d="M18 26h36l-4 36a4 4 0 0 1-4 4H26a4 4 0 0 1-4-4Z" fill="var(--wax-soft)" stroke="currentColor" stroke-width="2.5"/><path d="M18 26c4-4 32-4 36 0" stroke="var(--wax)" stroke-width="2" fill="none"/><path d="M28 26v-6a8 8 0 0 1 16 0v6" fill="none" stroke="currentColor" stroke-width="2.5"/>',
+  tazza:'<path d="M16 20h32v28a12 12 0 0 1-12 12h-8A12 12 0 0 1 16 48Z" fill="var(--wax-soft)" stroke="currentColor" stroke-width="2.5"/><path d="M48 28h6a7 7 0 0 1 0 14h-6" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M24 32h16M24 40h11" stroke="var(--wax)" stroke-width="2"/>',
+  candela:'<rect x="22" y="28" width="28" height="36" rx="3" fill="var(--wax-soft)" stroke="currentColor" stroke-width="2.5"/><path d="M36 28c0-6 5-8 5-14-6 2-10 6-10 10s2 4 5 4Z" fill="var(--wax)"/><path d="M27 42h18M27 50h13" stroke="var(--wax)" stroke-width="2"/>',
+  cera:'<circle cx="26" cy="30" r="10" fill="var(--wax-soft)" stroke="currentColor" stroke-width="2"/><circle cx="46" cy="30" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="26" cy="48" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="46" cy="48" r="10" fill="var(--wax-soft)" stroke="var(--wax)" stroke-width="2"/>',
+  cartolina:'<rect x="12" y="18" width="48" height="36" rx="2" fill="var(--wax-soft)" stroke="currentColor" stroke-width="2.5"/><path d="M12 54l18-18 10 10 8-8 12 12" fill="none" stroke="var(--wax)" stroke-width="2"/><circle cx="46" cy="29" r="4" fill="var(--brass)"/>',
+  box:'<rect x="12" y="26" width="48" height="34" rx="2" fill="var(--wax-soft)" stroke="currentColor" stroke-width="2.5"/><path d="M12 26l6-10h36l6 10" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M36 16v44" stroke="var(--wax)" stroke-width="2.5"/><path d="M36 26c-4-6-12-6-12 0M36 26c4-6 12-6 12 0" fill="none" stroke="var(--wax)" stroke-width="2"/>',
+  regalo:'<rect x="14" y="30" width="44" height="30" rx="2" fill="var(--wax-soft)" stroke="currentColor" stroke-width="2.5"/><rect x="12" y="22" width="48" height="10" rx="2" fill="none" stroke="currentColor" stroke-width="2.5"/><path d="M36 22v38" stroke="var(--wax)" stroke-width="3"/><path d="M36 22c-5-3-10-10-4-12 4-1 4 8 4 12Zm0 0c5-3 10-10 4-12-4-1-4 8-4 12Z" fill="var(--wax)" opacity=".6"/>',
+  stella:'<path d="M36 10l7.5 17.5L62 29.5 48 42l4 19-16-10-16 10 4-19L10 29.5l18.5-2Z" fill="var(--wax-soft)" stroke="var(--wax)" stroke-width="2"/><circle cx="36" cy="38" r="5" fill="var(--brass)"/>'
+};
+
+let CONFIG = Object.assign({}, DEFAULTS);
+let PRODUCTS = [];
+let filtro = "Tutto";
+let richiesta = [];
+
+const $ = (sel) => document.querySelector(sel);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const waLink = (text) => "https://wa.me/" + String(CONFIG.phone || "").replace(/\D/g, "") + "?text=" + encodeURIComponent(text);
+const saluto = () => "Ciao " + CONFIG.brand + "! ";
+const fotoSrc = (v) => String(v || "").replace(/^\.?\//, "");
+
+/* ---------- caricamento contenuti ---------- */
+async function leggi(file){
+  try{
+    const r = await fetch(file + "?v=" + Date.now());
+    return r.ok ? await r.json() : null;
+  }catch(e){ return null; }
+}
+
+async function avvia(){
+  const [imp, prod] = await Promise.all([leggi("impostazioni.json"), leggi("prodotti.json")]);
+  if(imp && typeof imp === "object") CONFIG = Object.assign({}, DEFAULTS, imp);
+  const lista = Array.isArray(prod) ? prod : (prod && Array.isArray(prod.prodotti) ? prod.prodotti : null);
+  PRODUCTS = (lista || []).filter(p => p && p.nome && p.attivo !== false);
+
+  applicaConfig();
+  renderFiltri();
+  renderGrid(lista === null);
+  try { richiesta = JSON.parse(localStorage.getItem(STORE) || "[]").filter(n => PRODUCTS.some(p => p.nome === n)); } catch(e){}
+  renderTray();
+}
+
+function applicaConfig(){
+  document.querySelectorAll("[data-brand]").forEach(el => el.textContent = CONFIG.brand);
+  document.querySelector(".logo span").textContent = CONFIG.claim || DEFAULTS.claim;
+  $("#phone-text").textContent = CONFIG.phoneDisplay;
+  $("#phone-foot").textContent = CONFIG.phoneDisplay;
+  $("#email-foot").textContent = CONFIG.email;
+  $("#orari-foot").textContent = CONFIG.orari || DEFAULTS.orari;
+  $("#vat-foot").textContent = CONFIG.vat ? "P. IVA " + CONFIG.vat : "";
+  $("#year").textContent = new Date().getFullYear();
+  document.title = CONFIG.brand;
+
+  $("#cta-header").href = waLink(saluto() + "Vorrei qualche informazione sulle vostre creazioni.");
+  $("#cta-hero").href   = waLink(saluto() + "Ho visto il sito e vorrei sapere prezzi e disponibilità.");
+  $("#cta-foot").href   = waLink(saluto() + "Vorrei qualche informazione.");
+  $("#cta-b2b").href    = waLink(saluto() + "Sono un'autrice/un autore/una libreria e vorrei un preventivo per una piccola tiratura di gadget.");
+}
+
+/* ---------- catalogo ---------- */
+function renderFiltri(){
+  const usate = new Set(PRODUCTS.map(p => p.categoria).filter(Boolean));
+  const visibili = CATS.filter(c => c === "Tutto" || usate.has(c));
+  $("#filters").innerHTML = visibili.map(c =>
+    `<button class="chip" type="button" data-cat="${esc(c)}" aria-pressed="${c === filtro}">${esc(c)}</button>`
+  ).join("");
+}
+
+function artHtml(p){
+  if(p.foto) return `<img src="${esc(fotoSrc(p.foto))}" alt="${esc(p.nome)}" loading="lazy">`;
+  const icona = ICONS[p.icona] || ICONS.stella;
+  return `<svg viewBox="0 0 72 72" fill="none" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-soft)">${icona}</svg>`;
+}
+
+function renderGrid(errore){
+  const grid = $("#grid");
+  if(!PRODUCTS.length){
+    grid.innerHTML = errore
+      ? `<div class="stato"><strong>Catalogo non raggiungibile</strong>Riprova tra poco, oppure scrivici su WhatsApp: ti mandiamo le foto in chat.</div>`
+      : `<div class="stato"><strong>Catalogo in aggiornamento</strong>Le nuove creazioni arrivano a breve. Nel frattempo scrivici su WhatsApp.</div>`;
+    return;
+  }
+  const lista = PRODUCTS.filter(p => filtro === "Tutto" || p.categoria === filtro);
+  grid.innerHTML = lista.map(p => `
+    <article class="card">
+      <div class="art">${artHtml(p)}</div>
+      <div class="card-body">
+        ${p.etichetta ? `<span class="pill">${esc(p.etichetta)}</span>` : ""}
+        <h3>${esc(p.nome)}</h3>
+        <p class="desc">${esc(p.descrizione)}</p>
+        ${p.dettaglio ? `<p class="meta">${esc(p.dettaglio)}</p>` : ""}
+        <p class="ask">Prezzo su richiesta</p>
+      </div>
+      <div class="card-actions">
+        <button class="btn btn--ghost btn--sm" type="button" data-add="${esc(p.nome)}">Aggiungi alla richiesta</button>
+        <a class="btn btn--wax btn--sm" href="${esc(waLink(saluto() + "Sono interessata/o a: " + p.nome + ". Mi dite prezzo e disponibilità?"))}" target="_blank" rel="noopener">Chiedi il prezzo</a>
+      </div>
+    </article>
+  `).join("");
+}
+
+$("#filters").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-cat]");
+  if(!b) return;
+  filtro = b.dataset.cat;
+  $("#filters").querySelectorAll(".chip").forEach(c => c.setAttribute("aria-pressed", String(c.dataset.cat === filtro)));
+  renderGrid(false);
+});
+
+/* ---------- blocco richiesta ---------- */
+const STORE = "mirysbook-richiesta";
+
+function salva(){ try { localStorage.setItem(STORE, JSON.stringify(richiesta)); } catch(e){} }
+
+function messaggioRichiesta(){
+  const righe = richiesta.map(n => "• " + n).join("\n");
+  const nota = $("#tray-note").value.trim();
+  return saluto() + "vorrei sapere prezzo e disponibilità di questi pezzi:\n" + righe +
+    (nota ? "\n\nNote: " + nota : "") + "\n\nGrazie!";
+}
+
+function renderTray(){
+  $("#tray-count").textContent = String(richiesta.length);
+  const items = $("#tray-items");
+  items.innerHTML = richiesta.length
+    ? richiesta.map(n => `<li><span class="nm">${esc(n)}</span><button class="icon-btn" type="button" data-del="${esc(n)}" aria-label="Togli ${esc(n)}">×</button></li>`).join("")
+    : `<li><p class="empty">Nessun pezzo scelto. Aggiungi dal catalogo quello che ti interessa: chiedi i prezzi di tutto in un messaggio solo.</p></li>`;
+  const send = $("#tray-send");
+  send.href = richiesta.length ? waLink(messaggioRichiesta()) : waLink(saluto() + "vorrei qualche informazione.");
+  send.style.opacity = richiesta.length ? "1" : ".55";
+}
+
+$("#grid").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-add]");
+  if(!b) return;
+  const nome = b.dataset.add;
+  if(!richiesta.includes(nome)) richiesta.push(nome);
+  salva(); renderTray(); apriTray(true);
+  b.textContent = "Aggiunto ✓";
+  setTimeout(() => { b.textContent = "Aggiungi alla richiesta"; }, 1600);
+});
+
+$("#tray-items").addEventListener("click", (e) => {
+  const b = e.target.closest("[data-del]");
+  if(!b) return;
+  richiesta = richiesta.filter(n => n !== b.dataset.del);
+  salva(); renderTray();
+});
+
+$("#tray-note").addEventListener("input", renderTray);
+
+function apriTray(open){
+  $("#tray").hidden = !open;
+  $("#tray-btn").hidden = open;
+  $("#tray-btn").setAttribute("aria-expanded", String(open));
+}
+$("#tray-btn").addEventListener("click", () => apriTray(true));
+$("#tray-close").addEventListener("click", () => { apriTray(false); $("#tray-btn").focus(); });
+document.addEventListener("keydown", (e) => { if(e.key === "Escape" && !$("#tray").hidden) apriTray(false); });
+
+/* ---------- modulo preventivo ---------- */
+$("#quote-form").addEventListener("submit", (e) => {
+  e.preventDefault();
+  const f = e.target;
+  const dettagli = f.dettagli.value.trim();
+  const status = $("#quote-status");
+  if(!dettagli){
+    status.textContent = "Scrivi due righe su cosa ti serve: senza quelle non possiamo fare un preventivo.";
+    f.dettagli.focus();
+    return;
+  }
+  const testo = [
+    saluto() + "vorrei un preventivo.",
+    f.nome.value.trim() ? "Nome: " + f.nome.value.trim() : null,
+    "Tipo di richiesta: " + f.tipo.value,
+    f.modello.value.trim() ? "Modello/misure: " + f.modello.value.trim() : null,
+    "Quantità: " + (f.qta.value || "1"),
+    "Dettagli: " + dettagli
+  ].filter(Boolean).join("\n");
+  status.textContent = "WhatsApp si apre in una nuova scheda con il messaggio pronto.";
+  window.open(waLink(testo), "_blank", "noopener");
+});
+
+/* ---------- copia numero ---------- */
+$("#copy-phone").addEventListener("click", async (e) => {
+  const b = e.currentTarget;
+  try{
+    await navigator.clipboard.writeText(CONFIG.phoneDisplay);
+    b.textContent = "Copiato ✓";
+  }catch(err){
+    const r = document.createRange();
+    r.selectNodeContents($("#phone-text"));
+    const s = window.getSelection();
+    s.removeAllRanges(); s.addRange(r);
+    b.textContent = "Selezionato";
+  }
+  setTimeout(() => { b.textContent = "Copia numero"; }, 1800);
+});
+
+avvia();
+</script>

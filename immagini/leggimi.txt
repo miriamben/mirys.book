@@ -1,0 +1,3 @@
+Qui dentro finiscono le foto dei prodotti.
+Non serve caricarle a mano: quando carichi una foto dal pannello Pages CMS, la mette automaticamente in questa cartella.
+Questo file serve solo a far esistere la cartella su GitHub: puoi lasciarlo dov'è.
