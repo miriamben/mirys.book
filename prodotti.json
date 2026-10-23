@@ -4,7 +4,7 @@
     "descrizione": "Imbottita, chiusura magnetica, fascia elastica interna. Su misura per Kindle e Kobo.",
     "categoria": "E-reader",
     "dettaglio": "Cucita a mano · 12 fantasie",
-    "foto": "",
+    "foto": "immagini/Screenshot 2025-10-21 115133.png",
     "icona": "ereader",
     "etichetta": "Più richiesta",
     "attivo": true
@@ -14,9 +14,7 @@
     "descrizione": "Il pannello illustrato che copre lo schermo quando non leggi. Anche con la tua grafica.",
     "categoria": "E-reader",
     "dettaglio": "Stampa su misura",
-    "foto": "",
     "icona": "inserto",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -24,9 +22,7 @@
     "descrizione": "Tappo in resina decorato, protegge la porta USB-C dell'e-reader o del telefono.",
     "categoria": "E-reader",
     "dettaglio": "Resina colata a mano",
-    "foto": "",
     "icona": "plug",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -34,9 +30,7 @@
     "descrizione": "L'anello che tiene l'e-reader con una mano sola. Finiture perlate o trasparenti con fiori secchi.",
     "categoria": "Accessori",
     "dettaglio": "Pezzo unico",
-    "foto": "",
     "icona": "holdie",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -44,9 +38,7 @@
     "descrizione": "Lamina di ottone spazzolato con incisione fino a 20 caratteri e nappina in cotone.",
     "categoria": "Accessori",
     "dettaglio": "Incisione inclusa",
-    "foto": "",
     "icona": "segnalibro",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -54,9 +46,7 @@
     "descrizione": "Ciondoli a tema drago, erbario e teatro gotico, da agganciare a segnalibri e borse.",
     "categoria": "Accessori",
     "dettaglio": "Serie limitate",
-    "foto": "",
     "icona": "charm",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -64,9 +54,7 @@
     "descrizione": "Custodia morbida con coulisse: il libro resta integro in borsa e in valigia.",
     "categoria": "Accessori",
     "dettaglio": "Due misure",
-    "foto": "",
     "icona": "borsa",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -74,9 +62,7 @@
     "descrizione": "Ceramica con grafiche originali dell'atelier. Lavabile in lavastoviglie.",
     "categoria": "Casa e profumi",
     "dettaglio": "Stampa resistente",
-    "foto": "",
     "icona": "tazza",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -84,9 +70,7 @@
     "descrizione": "Cera di soia, note di carta vecchia, cedro e vaniglia. Circa 35 ore di autonomia.",
     "categoria": "Casa e profumi",
     "dettaglio": "Colata in Italia",
-    "foto": "",
     "icona": "candela",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -94,9 +78,7 @@
     "descrizione": "Set da sei cialde per bruciatore, tre fragranze a scelta tra le sette disponibili.",
     "categoria": "Casa e profumi",
     "dettaglio": "Set da 6",
-    "foto": "",
     "icona": "cera",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -104,9 +86,7 @@
     "descrizione": "Carta avorio 300 g, illustrazioni originali. Belle da spedire e da appendere.",
     "categoria": "Casa e profumi",
     "dettaglio": "Carta 300 g",
-    "foto": "",
     "icona": "cartolina",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -114,7 +94,6 @@
     "descrizione": "Da tre a sei creazioni a sorpresa a tema stagionale, valore sempre superiore al prezzo.",
     "categoria": "Box e regali",
     "dettaglio": "Edizioni a tema",
-    "foto": "",
     "icona": "box",
     "etichetta": "Su prenotazione",
     "attivo": true
@@ -124,9 +103,7 @@
     "descrizione": "Cover, segnalibro inciso e candela, in confezione con biglietto scritto a mano.",
     "categoria": "Box e regali",
     "dettaglio": "Confezione inclusa",
-    "foto": "",
     "icona": "regalo",
-    "etichetta": "",
     "attivo": true
   },
   {
@@ -134,9 +111,7 @@
     "descrizione": "Bomboniere, regali per gruppi di lettura, gadget per un evento: ne parliamo in chat.",
     "categoria": "Box e regali",
     "dettaglio": "Da 25 pezzi",
-    "foto": "",
     "icona": "stella",
-    "etichetta": "",
     "attivo": true
   }
 ]
