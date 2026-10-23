@@ -1,0 +1,92 @@
+media:
+  input: immagini
+  output: immagini
+  categories: [image]
+
+content:
+  - name: prodotti
+    label: Prodotti
+    type: file
+    path: prodotti.json
+    format: json
+    list: true
+    fields:
+      - name: nome
+        label: Nome del prodotto
+        type: string
+      - name: descrizione
+        label: Descrizione
+        type: text
+      - name: categoria
+        label: Categoria
+        type: select
+        options:
+          values:
+            - "E-reader"
+            - "Accessori"
+            - "Casa e profumi"
+            - "Box e regali"
+      - name: dettaglio
+        label: Dettaglio breve
+        description: "Riga piccola sotto la descrizione, es. Cucita a mano · 12 fantasie"
+        type: string
+      - name: foto
+        label: Foto del prodotto
+        type: image
+      - name: icona
+        label: Disegno da usare se non carichi la foto
+        type: select
+        options:
+          values:
+            - "ereader"
+            - "inserto"
+            - "plug"
+            - "holdie"
+            - "segnalibro"
+            - "charm"
+            - "borsa"
+            - "tazza"
+            - "candela"
+            - "cera"
+            - "cartolina"
+            - "box"
+            - "regalo"
+            - "stella"
+      - name: etichetta
+        label: Etichetta rossa
+        description: "Facoltativa, es. Più richiesta oppure Novità. Lascia vuoto per non mostrarla."
+        type: string
+      - name: attivo
+        label: In vetrina
+        description: "Spegni per nascondere il prodotto dal sito senza cancellarlo."
+        type: boolean
+
+  - name: impostazioni
+    label: Impostazioni del sito
+    type: file
+    path: impostazioni.json
+    format: json
+    fields:
+      - name: brand
+        label: Nome dell'attività
+        type: string
+      - name: claim
+        label: Sottotitolo accanto al nome
+        type: string
+      - name: phone
+        label: Numero WhatsApp per i link
+        description: "Solo cifre, con prefisso internazionale e senza +. Esempio: 393331234567"
+        type: string
+      - name: phoneDisplay
+        label: Numero come si legge sul sito
+        description: "Esempio: +39 333 123 4567"
+        type: string
+      - name: email
+        label: Email
+        type: string
+      - name: orari
+        label: Orari di risposta
+        type: string
+      - name: vat
+        label: Partita IVA
+        type: string
