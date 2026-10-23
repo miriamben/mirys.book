@@ -1,12 +1,12 @@
 [
   {
-    "nome": "Cover per e-reader in cotone cerato",
-    "descrizione": "Imbottita, chiusura magnetica, fascia elastica interna. Su misura per Kindle e Kobo.",
+    "nome": "Cover test",
+    "descrizione": "Imbottita test",
     "categoria": "E-reader",
-    "dettaglio": "Cucita a mano · 12 fantasie",
+    "dettaglio": "Cucita a mano test",
     "foto": "immagini/Screenshot 2025-10-21 115133.png",
     "icona": "ereader",
-    "etichetta": "Più richiesta",
+    "etichetta": "Più richiesta test",
     "attivo": true
   },
   {
